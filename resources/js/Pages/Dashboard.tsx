@@ -1,11 +1,12 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, useForm } from '@inertiajs/react';
-import { PageProps } from '@/types';
+import { PageProps, TodosProps } from '@/types';
 import InputError from '@/Components/InputError';
 import PrimaryButton from '@/Components/PrimaryButton';
+import Todos from '@/Pages/Todos/Todos';
 import { FormEventHandler } from 'react';
 
-export default function Dashboard({ auth }: PageProps) {
+export default function Dashboard({ auth, todos }: PageProps<TodosProps>) {
     const { data, setData, post, processing, reset, errors } = useForm({
         text: '',
     });
@@ -35,6 +36,7 @@ export default function Dashboard({ auth }: PageProps) {
                 </form>
             </div>
 
+            <Todos todos={todos}/>
         </AuthenticatedLayout>
     );
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Todo;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 class TodoController extends Controller
@@ -16,33 +17,26 @@ class TodoController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request): RedirectResponse
     {
-        //
+        $request->validate([
+            'text' => 'required|string|max:200',
+        ]);
+
+        $request->user()->todos()->create([
+            'text' => $request->text,
+            'done' => false,
+        ]);
+
+        return redirect(route('dashboard'));
     }
 
     /**
      * Display the specified resource.
      */
     public function show(Todo $todo)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Todo $todo)
     {
         //
     }
