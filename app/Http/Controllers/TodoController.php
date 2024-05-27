@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Todo;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class TodoController extends Controller
 {
@@ -52,8 +53,12 @@ class TodoController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Todo $todo)
+    public function destroy(Todo $todo): RedirectResponse
     {
-        //
+        Gate::authorize('delete', $todo);
+
+        $todo->delete();
+
+        return redirect(route('dashboard'));
     }
 }

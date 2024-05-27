@@ -36,7 +36,7 @@ export default function Dashboard({ auth, todos }: PageProps<TodosProps>) {
                 </form>
             </div>
 
-            <Todos todos={todos}/>
+            <Todos auth={auth} todos={todos}/>
         </AuthenticatedLayout>
     );
 }

@@ -15,11 +15,11 @@ Route::get('/', function () {
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard', [
-        'todos' => Todo::with('user:id,name')->get()
+        'todos' => Todo::with('user:id,name')->latest()->get(),
     ]);
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::resource('/todos', TodoController::class)->only(['store']);
+Route::resource('/todos', TodoController::class)->only(['store', 'destroy']);
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
