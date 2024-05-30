@@ -15,8 +15,6 @@ export default function Todo({ auth, todo }: PageProps<TodoProps>) {
         done: !!todo.done
     });
 
-    {todo.id === 8 ? console.log(todo.done) : ''}
-
     const [editing, setEditing] = useState(false);
 
     const submit = (e: React.FormEvent<HTMLElement>) => {
@@ -57,14 +55,14 @@ export default function Todo({ auth, todo }: PageProps<TodoProps>) {
                         </div>
                     </form>
                     :
-                    <>
+                    <div>
                         <span className={`${todo.done ? 'line-through' : ''}`}>{todo.text}</span>
                         <button
                             onClick={() => setEditing(true)}
-                            className="hover:text-green-700">
-                            <ModeEdit />
+                            className="ml-2 hover:text-green-700">
+                            <ModeEdit className="text-sm" />
                         </button>
-                    </>
+                    </div>
                 }
                 {todo.user_id === auth.user.id &&
                     <div>
