@@ -19,7 +19,7 @@ Route::get('/dashboard', function () {
     ]);
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::resource('/todos', TodoController::class)->only(['store', 'destroy']);
+Route::resource('/todos', TodoController::class)->only(['store', 'destroy', 'update']);
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
