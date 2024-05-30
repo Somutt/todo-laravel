@@ -15,6 +15,8 @@ export default function Todo({ auth, todo }: PageProps<TodoProps>) {
         done: !!todo.done
     });
 
+    {todo.id === 8 ? console.log(todo.done) : ''}
+
     const [editing, setEditing] = useState(false);
 
     const submit = (e: React.FormEvent<HTMLElement>) => {
@@ -28,7 +30,7 @@ export default function Todo({ auth, todo }: PageProps<TodoProps>) {
 
         setData('done', !data.done);
 
-        patch(route('todos.update', todo.id));
+        patch(route('todos.update', [todo.id, true]));
     }
 
     return (

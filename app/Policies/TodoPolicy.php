@@ -12,7 +12,7 @@ class TodoPolicy
      */
     public function update(User $user, Todo $todo): bool
     {
-        return $todo->user()->is($user);
+        return $todo->user->is($user);
     }
 
     /**

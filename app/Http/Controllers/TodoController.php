@@ -45,9 +45,19 @@ class TodoController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Todo $todo): RedirectResponse
+    public function update(Request $request, int $id, ?bool $done_edit = false): RedirectResponse
     {
+        $todo = Todo::find($id);
+
         Gate::authorize('update', $todo);
+
+        if ($done_edit === true) {
+            $todo->update([
+                'done' => !$request->done,
+            ]);
+
+            return redirect(route('dashboard'));
+        }
 
         $request->validate([
             'text' => 'required|string|max:200',
@@ -55,7 +65,6 @@ class TodoController extends Controller
 
         $todo->update([
             'text' => $request->text,
-            'done' => $request->done,
         ]);
 
         return redirect(route('dashboard'));
